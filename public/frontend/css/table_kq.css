@@ -1,0 +1,101 @@
+/*
+ * table_kq
+ *
+ * Define classes of tables
+ * And classes of text we might want to display in our table of ket qua xo so
+ * for each province
+ */
+
+/* Kind of border we want for our tables of ket qua */
+table.table-kq-border tr td:first-child{
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #7e7e7e;
+    
+}
+
+table.table-kq-border tr td:last-child{
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #7e7e7e;
+}
+
+table.table-kq-border thead tr:first-child th, table.table-kq-border thead tr:first-child td {
+    border-top: solid !important;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: rgb(87, 132, 169);
+
+}
+
+table.table-kq-border   tr:last-child td {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #7E7E7E;
+}
+
+/* Hover effects on cells of table of ketqua */
+table.table-kq-hover tbody td:hover:not(.cau-khong-ton-tai){
+    background-color: #ffbf00;
+}
+
+/* Strip of colors and large text size for our tables of ket qua */
+table.table-kq-north-west>thead>tr:first-child td, table.table-kq-north-west>thead>tr:first-child th, table.table-kq-north>thead>tr:first-child td, table.table-kq-north>thead>tr:first-child th  {
+    font-size:17px;
+    color: #990000;
+    background-color: white;
+}
+
+table.table-kq-north-west>tbody>tr td:first-child {
+    width:16%;
+    vertical-align:middle;
+    font-size:16px;
+    background-color: #FFFFFF;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #7E7E7E;
+}
+
+table.table-kq-bold-border{
+    border: 4px solid #7e7e7e;
+}
+
+
+/* Classes of text for our ket qua */
+
+
+/* Prize in table Loto truc tiep */
+.lototructiep {
+    font-size: 19px !important;
+    font-family: arial;
+}
+
+/* Normal prize when display in So Ket Qua */
+.giaiskq {
+    font-size: 15px !important;
+    font-family: arial;
+}
+
+
+/* Special mode for when we print a result of a province */
+@media print
+{
+     div.result_div .chu15 {
+        font-size: 16px;
+        font-weight:normal;
+    }
+    div.result_div .chu19 {
+        font-size: 19px;
+        font-weight:normal;
+    }
+    div.result_div .chu17 {
+        font-size: 17px;
+        font-weight:normal;
+    }
+    div.result_div .maudo {
+        font-size: 21px;
+        font-weight:bold;
+    }
+   
+	    
+}

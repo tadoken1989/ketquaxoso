@@ -1,0 +1,5 @@
+function start_cungquay()
+{$('div.result_div table tbody tr td:not(:first-child).vietdam').each(function(index,value){$(value).addClass('rolling');});$('#start').click(function(){return stop_cungquay();});$('#starticon').removeClass('glyphicon-play');$('#starticon').addClass('glyphicon-stop');$('#start').removeClass('btn-primary');$('#start').contents().last()[0].textContent=' Dừng lại';$('#start').addClass('btn-danger');return false;}
+function stop_cungquay()
+{$('div.result_div table tbody tr td:not(:first-child).vietdam').each(function(index,value){$(value).removeClass('rolling');});$('#start').click(function(){return start_cungquay();});$('#starticon').removeClass('glyphicon-stop');$('#starticon').addClass('glyphicon-play');$('#start').removeClass('btn-danger');$('#start').contents().last()[0].textContent=' Bắt đầu';$('#start').addClass('btn-primary');return false;}
+$(document).ready(function(){$('#speed').change(function(){quay_interval=$('#speed').val();});$('#start').click(function(){return start_cungquay();});});

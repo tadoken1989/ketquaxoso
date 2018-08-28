@@ -1,0 +1,291 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Frontend
+|--------------------------------------------------------------------------|
+*/
+
+Route::group(['namespace' => 'Frontend'], function () {
+    Route::get('/', ['as' => 'frontend.layouts', 'uses' => 'HomeController@home']);
+    Route::get('/xo-so',['as' => 'lotteryToday', 'uses' => 'HomeController@lotteryToday']);
+    Route::get('/so-ket-qua',['as' => 'resultsBook', 'uses' => 'HomeController@resultsBook']);
+    Route::get('/xo-so-{slug}', ['as' => 'frontend.result_lottery_via_province', 'uses' => 'HomeController@index'])->where(['slug' => '[-A-Za-z0-9]+']);
+    Route::get('tin-tuc-xo-so/{slug}',['as' => 'detail','uses' => 'PostController@detailPost'])->where(['slug' => '[-A-Za-z0-9]+']);
+    Route::get('tin-tuc-xo-so',['as' => 'tin-tuc-xo-so','uses' => 'PostController@allPost']);
+    Route::get('tin-tuc-xo-so/tags/{slug}',['as' => 'postByTag','uses' => 'PostController@postTag'])->where(['slug' => '[-A-Za-z0-9]+']);
+
+    // Thong ke vip route
+
+    Route::get('/chu-ky',['as' => 'frontend.statistics.loop', 'uses' => 'StatisticsController@loop']);
+    Route::post('/chu-ky',['as' => 'frontend.statistics.loop.search', 'uses' => 'StatisticsController@loop']);
+    Route::get('/tan-so-nhip-loto',['as' => 'frontend.statistics.frequency', 'uses' => 'StatisticsController@frequency']);
+    Route::post('/tan-so-nhip-loto',['as' => 'frontend.statistics.frequency.search', 'uses' => 'StatisticsController@frequency']);
+
+    Route::get('/tan-suat-loto',['as' => 'frontend.statistics.rate_lotto', 'uses' => 'StatisticsController@rateLotto']);
+    Route::post('/tan-suat-loto',['as' => 'frontend.statistics.rate_lotto.search', 'uses' => 'StatisticsController@rateLotto']);
+
+    //thong-ke-tan-suat-cap-loto
+
+    Route::get('tan-suat-cap-loto',['as' => 'frontend.statistics.rate_2_lotto', 'uses' => 'StatisticsController@rateTwoLotto']);
+    Route::post('/tan-suat-cap-loto',['as' => 'frontend.statistics.rate_2_lotto.search', 'uses' => 'StatisticsController@rateTwoLotto']);
+
+
+    Route::get('/loto-gan',['as' => 'frontend.statistics.lotto_gan', 'uses' => 'StatisticsController@lottoGan']);
+    Route::post('/loto-gan',['as' => 'frontend.statistics.lotto_gan.search', 'uses' => 'StatisticsController@lottoGan']);
+
+
+    Route::get('/dau-duoi-loto',['as' => 'frontend.statistics.head_foot_lotto', 'uses' => 'StatisticsController@headFoot']);
+    Route::post('/dau-duoi-loto',['as' => 'frontend.statistics.head_foot_lotto.search', 'uses' => 'StatisticsController@headFoot']);
+
+    Route::get('/chu-ky-dac-biet',['as' => 'frontend.statistics.special_lotto', 'uses' => 'StatisticsController@special']);
+    Route::post('/chu-ky-dac-biet',['as' => 'frontend.statistics.special_lotto.search', 'uses' => 'StatisticsController@special']);
+
+
+    Route::get('/chu-ky-dan-dac-biet',['as' => 'frontend.statistics.special_lotto_loop', 'uses' => 'StatisticsController@specialLoop']);
+    Route::post('/chu-ky-dan-dac-biet',['as' => 'frontend.statistics.special_lotto_loop.search', 'uses' => 'StatisticsController@specialLoop']);
+
+    Route::get('/chu-ky-dan-loto',['as' => 'frontend.statistics.lotto_loop', 'uses' => 'StatisticsController@lottoLoop']);
+    Route::post('/chu-ky-dan-loto',['as' => 'frontend.statistics.lotto_loop.search', 'uses' => 'StatisticsController@lottoLoop']);
+
+    Route::get('/chu-ky-max-dan-cung-ve',['as' => 'frontend.statistics.maxDanResults', 'uses' => 'StatisticsController@maxDanResults']);
+    Route::post('/chu-ky-max-dan-cung-ve',['as' => 'frontend.statistics.maxDanResults.search', 'uses' => 'StatisticsController@maxDanResults']);
+
+
+    Route::get('/bang-dac-biet',['as' => 'frontend.statistics.special_lotto_weekend', 'uses' => 'StatisticsController@specialLottoWeekend']);
+    Route::post('/bang-dac-biet',['as' => 'frontend.statistics.special_lotto_weekend.search', 'uses' => 'StatisticsController@specialLottoWeekend']);
+
+    Route::get('/bang-dac-biet-nam',['as' => 'frontend.statistics.special_lotto_year', 'uses' => 'StatisticsController@specialLottoYear']);
+    Route::post('/bang-dac-biet-nam',['as' => 'frontend.statistics.special_lotto_year.search', 'uses' => 'StatisticsController@specialLottoYear']);
+
+    Route::get('/bang-dac-biet-thang',['as' => 'frontend.statistics.special_lotto_month', 'uses' => 'StatisticsController@specialLottoMonth']);
+    Route::post('/bang-dac-biet-thang',['as' => 'frontend.statistics.special_lotto_month.search', 'uses' => 'StatisticsController@specialLottoMonth']);
+
+
+    Route::get('/giai-db-ngay-mai',['as' => 'frontend.statistics.special_tmr', 'uses' => 'StatisticsController@specialTomorrow']);
+    Route::post('/giai-db-ngay-mai',['as' => 'frontend.statistics.special_tmr.search', 'uses' => 'StatisticsController@specialTomorrow']);
+
+    Route::get('/tao-phoi',['as' => 'frontend.statistics.createCasts', 'uses' => 'StatisticsController@createCasts']);
+    Route::post('/tao-phoi',['as' => 'frontend.statistics.createCasts.search', 'uses' => 'StatisticsController@createCasts']);
+
+
+    // soi cau group
+
+    Route::get('/cau-giai-dac-biet',['as' => 'frontend.inspired.specialLotto', 'uses' => 'InspiredController@specialLotto']);
+    Route::post('/cau-giai-dac-biet',['as' => 'frontend.inspired.specialLotto.search', 'uses' => 'InspiredController@specialLotto']);
+
+    Route::get('/cau-loto-hai-nhay',['as' => 'frontend.inspired.towLotto', 'uses' => 'InspiredController@twoLotto']);
+    Route::post('/soi-cau-loto-hai-nhay',['as' => 'frontend.inspired.towLotto.search', 'uses' => 'InspiredController@twoLotto']);
+
+    Route::get('/cau-loto',['as' => 'frontend.inspired.Lotto', 'uses' => 'InspiredController@Lotto']);
+    Route::post('/cau-loto',['as' => 'frontend.inspired.Lotto.search', 'uses' => 'InspiredController@Lotto']);
+
+    Route::get('/cau-bach-thu',['as' => 'frontend.inspired.bachThu', 'uses' => 'InspiredController@bachThu']);
+    Route::post('/cau-bach-thu',['as' => 'frontend.inspired.bachThu.search', 'uses' => 'InspiredController@bachThu']);
+
+    Route::get('/cau-loai-loto',['as' => 'frontend.inspired.dropLotto', 'uses' => 'InspiredController@dropLotto']);
+    Route::post('/cau-loai-loto',['as' => 'frontend.inspired.dropLotto.search', 'uses' => 'InspiredController@dropLotto']);
+
+    Route::get('/cau-loai-bach-thu',['as' => 'frontend.inspired.dropBachThu', 'uses' => 'InspiredController@dropBachThu']);
+    Route::post('/cau-loai-bach-thu',['as' => 'frontend.inspired.dropBachThu.search', 'uses' => 'InspiredController@dropBachThu']);
+
+    Route::get('/cau-theo-thu',['as' => 'frontend.inspired.viewByDay', 'uses' => 'InspiredController@viewByDay']);
+    Route::post('/cau-theo-thu',['as' => 'frontend.inspired.viewByDay.search', 'uses' => 'InspiredController@viewByDay']);
+
+    Route::get('/cau-dac-biet-theo-thu',['as' => 'frontend.inspired.viewSpecialByDay', 'uses' => 'InspiredController@viewSpecialByDay']);
+    Route::post('/cau-dac-biet-theo-thu',['as' => 'frontend.inspired.viewSpecialByDay.search', 'uses' => 'InspiredController@viewSpecialByDay']);
+
+
+    Route::get('/lich-su-cau',['as' => 'frontend.inspired.searchHistory', 'uses' => 'InspiredController@searchHistory']);
+    Route::post('/lich-su-cau',['as' => 'frontend.inspired.searchHistory.search', 'uses' => 'InspiredController@searchHistory']);
+
+    Route::get('/view_province_cau_details',['as' => 'frontend.inspired.view_province_cau_details', 'uses' => 'InspiredController@viewProvinceCauDetails']);
+
+    // thong ke nhanh group
+
+    Route::get('thong-ke-nhanh','StatisticsFastController@fast');
+    Route::post('thong-ke-nhanh',['as' => 'frontend.statisticsFast.search' ,'uses'=>'StatisticsFastController@fast']);
+
+    Route::get('thong-ke-tan-suat-bo-so',['as' => 'frontend.statisticsFast.frequencySetOfNumbers', 'uses' => 'StatisticsFastController@frequencySetOfNumbers']);
+    Route::post('thong-ke-tan-suat-bo-so',['as' => 'frontend.statisticsFast.frequencySetOfNumbers.search', 'uses' => 'StatisticsFastController@frequencySetOfNumbers']);
+
+    Route::get('cung-quay-xo-so',['as' => 'frontend.statisticsFast.snipLottery', 'uses' => 'StatisticsFastController@snipLottery']);
+    Route::post('cung-quay-xo-so',['as' => 'frontend.statisticsFast.snipLottery.search', 'uses' => 'StatisticsFastController@snipLottery']);
+
+    Route::get('thong-ke-tong-hop',['as' => 'frontend.statisticsFast.general','uses' => 'StatisticsFastController@general']);
+    Route::post('thong-ke-tong-hop',['as' => 'frontend.statisticsFast.general.search','uses' => 'StatisticsFastController@general']);
+
+    Route::get('thong-ke-theo-ngay',['as' => 'frontend.statisticsFast.statisticsByDay','uses' => 'StatisticsFastController@statisticsByDay']);
+    Route::post('thong-ke-theo-ngay',['as' => 'frontend.statisticsFast.statisticsByDay.search','uses' => 'StatisticsFastController@statisticsByDay']);
+
+    Route::get('thong-ke-theo-tong',['as' => 'frontend.statisticsFast.statisticsTotalLotto','uses' => 'StatisticsFastController@statisticsTotalLotto']);
+    Route::post('thong-ke-theo-tong',['as' => 'frontend.statisticsFast.statisticsTotalLotto.search','uses' => 'StatisticsFastController@statisticsTotalLotto']);
+
+    Route::get('thong-ke-quan-trong',['as' => 'frontend.statisticsFast.statisticsImportant','uses' => 'StatisticsFastController@statisticsImportant']);
+    Route::post('thong-ke-quan-trong',['as' => 'frontend.statisticsFast.statisticsImportant.search','uses' => 'StatisticsFastController@statisticsImportant']);
+
+    Route::get('gop-so',['as' => 'frontend.statisticsFast.aggregationTool','uses' => 'StatisticsFastController@aggregationTool']);
+
+    Route::get('tach-so',['as' => 'frontend.statisticsFast.numberSeparatorTool','uses' => 'StatisticsFastController@numberSeparatorTool']);
+
+    Route::get('loc-ghep-dan',['as' => 'frontend.statisticsFast.transplantStretcherTool','uses' => 'StatisticsFastController@transplantStretcherTool']);
+
+    Route::get('tao-dan',['as' => 'frontend.statisticsFast.createFastSpecialArrangements','uses' => 'StatisticsFastController@createFastSpecialArrangements']);
+
+    Route::get('loai-dan',['as' => 'frontend.statisticsFast.specialArrangement','uses' => 'StatisticsFastController@specialArrangement']);
+
+    Route::get('lo-xien',['as' => 'frontend.statisticsFast.obliqueAutomatic','uses' => 'StatisticsFastController@obliqueAutomatic']);
+
+     // tien ich group
+
+    Route::get('lich-quay-thuong',['as' => 'frontend.extras.schedule_lotto','uses' => 'ExtrasController@schedule']);
+    Route::get('so-mo',['as' => 'frontend.extras.dream_lotto','uses' => 'ExtrasController@dreamLotto']);
+    Route::post('so-mo',['as' => 'frontend.extras.dream_lotto.search','uses' => 'ExtrasController@dreamLotto']);
+
+    Route::get('do-xo-so',['as' => 'frontend.extras.search_result','uses' => 'ExtrasController@searchResult']);
+    Route::post('do-xo-so',['as' => 'frontend.extras.search_result.search','uses' => 'ExtrasController@searchResult']);
+
+    Route::get('widget-ket-qua',['as' => 'frontend.extras.widget','uses' => 'ExtrasController@widget']);
+
+    Route::get('bong-da',['as' => 'frontend.extras.football','uses' => 'ExtrasController@football']);
+
+    Route::get('in-ket-qua-xo-so',['as' => 'frontend.print.index','uses' => 'PrintController@index']);
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Backend
+|--------------------------------------------------------------------------|
+*/
+
+Route::prefix('admin')->namespace('Back')->group(function () {
+
+    Route::middleware('editor')->group(function () {
+
+        Route::name('admin.index')->get('/', 'AdminController@index');
+
+        // Posts
+        Route::name('posts.seen')->put('posts/seen/{post}', 'PostController@updateSeen')->middleware('can:manage,post');
+        Route::name('posts.active')->put('posts/active/{post}/{status?}', 'PostController@updateActive')->middleware('can:manage,post');
+        Route::resource('posts', 'PostController');
+
+        // Notifications
+        Route::name('notifications.index')->get('notifications/{user}', 'NotificationController@index');
+        Route::name('notifications.update')->put('notifications/{notification}', 'NotificationController@update');
+
+        // Medias
+        Route::view('medias', 'back.medias')->name('medias.index');
+
+    });
+
+    Route::middleware('admin')->group(function () {
+
+        // Users
+        Route::name('users.seen')->put('users/seen/{user}', 'UserController@updateSeen');
+        Route::name('users.valid')->put('users/valid/{user}', 'UserController@updateValid');
+        Route::resource('users', 'UserController', ['only' => [
+            'index', 'edit', 'update', 'destroy'
+        ]]);
+
+        // Categories
+        Route::resource('categories', 'CategoryController', ['except' => 'show']);
+
+        Route::resource('notify', 'NotifyController', ['except' => 'show']);
+
+
+        // Contacts
+        Route::name('contacts.seen')->put('contacts/seen/{contact}', 'ContactController@updateSeen');
+        Route::resource('contacts', 'ContactController', ['only' => [
+            'index', 'destroy'
+        ]]);
+
+        // Comments
+        Route::name('comments.seen')->put('comments/seen/{comment}', 'CommentController@updateSeen');
+        Route::resource('comments', 'CommentController', ['only' => [
+            'index', 'destroy'
+        ]]);
+
+        // Settings
+        Route::name('settings.edit')->get('settings', 'AdminController@settingsEdit');
+        Route::name('settings.update')->put('settings', 'AdminController@settingsUpdate');
+
+        Route::name('sites.edit')->get('sites', 'SettingController@settingsEdit');
+        Route::name('sites.update')->put('sites', 'SettingController@settingsUpdate');
+
+        // Crawlers
+        Route::name('admin.crawler.index')->get('crawlers', 'CrawlerController@index');
+        Route::name('admin.crawler.get_by_province')->post('crawlers/getDateProvinceDate', 'CrawlerController@getDateProvinceDate');
+
+        Route::name('admin.lotteries.report')->get('lotteries/report', 'LotteriesController@report');
+        Route::name('admin.result_lotteries.edit')->get('lotteries/edit', 'LotteriesController@edit');
+        Route::name('admin.result_lotteries.update')->put('lotteries/update/{id}', 'LotteriesController@update');
+
+        Route::resource('lotteries', 'LotteriesController',
+            ['names' => [
+                'index' => 'admin.lotteries.index',
+                'edit' => 'admin.lotteries.edit',
+                'update' => 'admin.lotteries.update',
+                'create' => 'admin.lotteries.create',
+                'store' => 'admin.lotteries.store',
+                'show' => 'admin.lotteries.show',
+                'destroy' => 'admin.lotteries.destroy',
+            ],
+            ]
+        );
+
+        Route::resource('advertises', 'AdvertisesController',
+            ['names' => [
+                'index' => 'admin.advertises.index',
+                'edit' => 'admin.advertises.edit',
+                'update' => 'admin.advertises.update',
+                'create' => 'admin.advertises.create',
+                'store' => 'admin.advertises.store',
+                'show' => 'admin.advertises.show',
+                'destroy' => 'admin.advertises.destroy',
+            ],
+            ]
+        );
+
+
+        Route::group(['prefix' => 'data', 'middleware' => ['admin']], function () {
+            Route::get('crawler', ['as' => 'admin.lotteries.data', 'uses' => 'LotteriesController@getData']);
+            Route::get('advertises', ['as' => 'admin.advertises.data', 'uses' => 'AdvertisesController@getData']);
+        });
+
+
+        Route::group(['prefix' => '_ajax'], function () {
+            Route::post('_model/active', ['as' => 'admin.ajax.model.active', 'uses' => 'AjaxController@statusActive']);
+        });
+
+    });
+
+});
+
+
+//SYSTEM ADMIN
+
+Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
+    Route::get('/login', ['as' => 'system.login', 'uses' => 'LoginController@showLoginForm']);
+});
+
+// AUTH
+
+Auth::routes();
+
+Route::get('/test_vietlott', function(){
+    //Artisan::call('leech_vietlott', ['type' => 'mega', 'from'=> 'start', 'to'=>'now']);
+    //Artisan::call('leech_vietlott', ['type' => 'power', 'from'=> 'start', 'to'=>'now']);
+    Artisan::call('leech_vietlott', ['type' => 'max4d', 'from'=> 'start', 'to'=>'now']);
+});

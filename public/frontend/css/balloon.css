@@ -1,0 +1,98 @@
+div.baloon-left{left:3px}div.baloon-left a.toggle{text-align:left;color:#555}div.baloon-right{right:3px}div.baloon-right a.toggle{text-align:right;color:#555}div.baloon{position:fixed;bottom:3px;z-index:1000}div.baloon img{border:solid;border-width:1px;border-color:orange}div.baloon.inactive img{display:none}
+
+.result-number {
+    margin: 10px auto 0;
+    text-align: center;
+    padding: 0;
+}
+.result-number li {
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+    font-weight: 700;
+    padding: 5px;
+    border-radius: 50%;
+    width: 57px;
+    height: 57px;
+    line-height: 40px;
+    font-size: 27px;
+    background: none;
+    color: #000;
+    border: 4px solid #ed1d27;
+    margin: 0 5px;
+}
+.red {
+    color: #ed1d27;
+}
+.text-center {
+    text-align: center;
+}
+.title-mega645 {
+    color: #0000CD;
+}
+.time-result {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.count-record, .list-record {
+    padding-left: 20px;
+}
+.list-record li {
+    list-style: none;
+    display: inline-block;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    font-weight: 700;
+    color: #000;
+}
+.list-record li.red {
+    border: 1px solid #ddd;
+    color: #ed1d27;
+    background: #eee;
+    font-weight: 700;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.tk-item {
+    font-size: 16px;
+    font-weight: bold;
+}
+.count-record {
+    padding-left: 10px;
+}
+.count-record li {
+    list-style: none;
+    display: inline-block;
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.count-record li strong {
+    float: left;
+    display: block;
+    border: 1px solid #ddd;
+    color: #ed1d27;
+    background: #eee;
+    font-weight: 700;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.count-record li span {
+    float: left;
+    display: block;
+    width: 60px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-left: none;
+}
+div#result_hcm {
+    border: 1px solid #ddd;
+    padding: 5px;
+}

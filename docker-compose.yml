@@ -1,0 +1,9 @@
+version: '2'
+services:
+  ketqua_net:
+    build: .
+    ports:
+      - "2018:80"
+    volumes:
+      - .:/var/www/html
+    network_mode: bridge

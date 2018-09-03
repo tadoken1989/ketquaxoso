@@ -66,7 +66,7 @@
                           'value' => '',
                           'input' => 'text',
                           'title' => __(getNameFromPrize(1)),
-                          'required' => true,
+                          //'required' => true,
                       ],
                   ])
 
@@ -78,7 +78,7 @@
                          'value' => '',
                          'input' => 'text',
                          'title' => __(getNameFromPrize(2)),
-                         'required' => true,
+                         //'required' => true,
                      ],
                  ])
 
@@ -90,7 +90,7 @@
                         'value' => '',
                         'input' => 'text',
                         'title' => __(getNameFromPrize(3) .' số 1'),
-                        'required' => true,
+                        //'required' => true,
                             ],
                         ])
                     @include('back.partials.input', [
@@ -99,7 +99,7 @@
                        'value' => '',
                        'input' => 'text',
                        'title' => __(getNameFromPrize(3) .' số 2'),
-                       'required' => true,
+                       //'required' => true,
                            ],
                        ])
 
@@ -112,7 +112,7 @@
                           'value' => '',
                           'input' => 'text',
                           'title' => __(getNameFromPrize(4) .' số 1'),
-                          'required' => true,
+                          //'required' => true,
                               ],
                           ])
                     @include('back.partials.input', [
@@ -121,7 +121,7 @@
                           'value' => '',
                           'input' => 'text',
                           'title' => __(getNameFromPrize(4).' số 2'),
-                          'required' => true,
+                          //'required' => true,
                               ],
                           ])
                     @include('back.partials.input', [
@@ -130,7 +130,7 @@
                           'value' => '',
                           'input' => 'text',
                           'title' => __(getNameFromPrize(4).' số 3'),
-                          'required' => true,
+                          //'required' => true,
                               ],
                           ])
                     @include('back.partials.input', [
@@ -139,7 +139,7 @@
                           'value' => '',
                           'input' => 'text',
                           'title' => __(getNameFromPrize(4).' số 4'),
-                          'required' => true,
+                          //'required' => true,
                               ],
                           ])
                     @include('back.partials.input', [
@@ -148,7 +148,7 @@
                           'value' => '',
                           'input' => 'text',
                           'title' => __(getNameFromPrize(4).' số 5'),
-                          'required' => true,
+                          //'required' => true,
                               ],
                           ])
                     @include('back.partials.input', [
@@ -157,7 +157,7 @@
                           'value' => '',
                           'input' => 'text',
                           'title' => __(getNameFromPrize(4).' số 6'),
-                          'required' => true,
+                          //'required' => true,
                               ],
                           ])
                     @include('back.partials.input', [
@@ -166,7 +166,7 @@
                           'value' => '',
                           'input' => 'text',
                           'title' => __(getNameFromPrize(4).' số 7'),
-                          'required' => true,
+                          //'required' => true,
                               ],
                           ])
 
@@ -179,7 +179,7 @@
                       'value' => '',
                       'input' => 'text',
                       'title' => __(getNameFromPrize(5)),
-                      'required' => true,
+                      //'required' => true,
                           ],
                       ])
 
@@ -191,7 +191,7 @@
                         'value' => '',
                         'input' => 'text',
                         'title' => __(getNameFromPrize(6).' số 1'),
-                        'required' => true,
+                        //'required' => true,
                             ],
                         ])
 
@@ -201,7 +201,7 @@
                        'value' => '',
                        'input' => 'text',
                        'title' => __(getNameFromPrize(6).' số 2'),
-                       'required' => true,
+                       //'required' => true,
                            ],
                        ])
 
@@ -211,7 +211,7 @@
                        'value' => '',
                        'input' => 'text',
                        'title' => __(getNameFromPrize(6).' số 3'),
-                       'required' => true,
+                       //'required' => true,
                            ],
                        ])
 
@@ -225,7 +225,7 @@
                          'value' => '',
                          'input' => 'text',
                          'title' => __(getNameFromPrize(7)),
-                         'required' => true,
+                         //'required' => true,
                              ],
                          ])
                     {{--giải  8--}}
@@ -235,7 +235,7 @@
                          'value' => '',
                          'input' => 'text',
                          'title' => __(getNameFromPrize(8)),
-                         'required' => true,
+                         //'required' => true,
                              ],
                          ])
 
@@ -276,7 +276,7 @@
                            'value' => isset($resultLottery) ? $resultLottery->result_day : '',
                            'input' => 'text',
                            'required' => true,
-                           'disabled' => true,
+                           //'disabled' => true,
                        ],
                    ])
                 @endcomponent

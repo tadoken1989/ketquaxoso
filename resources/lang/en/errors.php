@@ -8,5 +8,5 @@ return [
     'error-403-info' => 'This action is unauthorized.',
     'error-503' => 'Error 503',
     'error-503-info' => 'Be right back.',
-
+    'prize-number-null' => '<span class="loading">****</span>'
 ];

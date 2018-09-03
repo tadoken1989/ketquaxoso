@@ -1,3 +1,4 @@
+@php($input['required'] = isset($input['required'])?$input['required']:false)
 <div class="form-group {{ $errors->has($input['name']) ? 'has-error' : '' }}">
     @isset($input['title'])
         <label for="{{ $input['name'] }}">{{ $input['title'] }}</label>

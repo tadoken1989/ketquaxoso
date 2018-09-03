@@ -51,7 +51,7 @@
                             'value' => isset($detail) ? $detail->prize_number : '',
                             'input' => 'text',
                             'title' => __(getNameFromPrize($detail->prize)),
-                            'required' => true,
+                            //'required' => true,
                         ],
                     ])
                 @endforeach

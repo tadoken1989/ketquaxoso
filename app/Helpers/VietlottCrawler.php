@@ -114,7 +114,7 @@ class VietlottCrawler
         }
 
         DB::beginTransaction();
-        global $parseType, $parseDate, $parseUrl;
+        global $parseType, $parseDate, $parseUrl, $redirectUrl;
         $parseType = $type;
 
         foreach($urls as $url){
@@ -125,15 +125,19 @@ class VietlottCrawler
             $ch = curl_init($url);
             curl_setopt_array($ch, array(CURLOPT_RETURNTRANSFER => TRUE));
             $content = curl_exec($ch);
+            $redirectUrl = curl_getinfo($ch, CURLINFO_REDIRECT_URL);
+            if ($redirectUrl && $redirectUrl != $url){
+                \Log::info("REQUEST_URL=$url\r\n==>REDIRECT_URL=$redirectUrl");
+            }else{
+                $redirectUrl = $url;
+            }
             curl_close($ch);
 
 
-            $valid = preg_match('/([0-9]{2})-([0-9]{2})-([0-9]{4}).html/', $url, $matches);
-            if ($valid){
-                $date = $matches[3] . '-' . $matches[2] . '-' . $matches[1];
-                $parseDate = $date;
+            $date = $this->getDateFromUrl($url);
+            $parseDate = $date;
+            if ($date){
                 $data = $this->parseContent($type, $content, $date);
-
                 $this->addData($data);
             }
 
@@ -142,6 +146,15 @@ class VietlottCrawler
         DB::commit();
         echo_now('== END crawl type=' . $type . ' at ' . date('Y/m/d'));
         \Log::info("End crawl type=$type");
+    }
+
+    public function getDateFromUrl($url){
+        $valid = preg_match('/([0-9]{2})-([0-9]{2})-([0-9]{4}).html/', $url, $matches);
+        if ($valid){
+            return $matches[3] . '-' . $matches[2] . '-' . $matches[1];
+        }
+
+        return '';
     }
 
     public function addData($data){
@@ -182,7 +195,7 @@ class VietlottCrawler
 
         if ($result){
             $province = Province::where('alias', $type)->first();
-            $result['result_day'] = $date;
+            $result['result_day'] = !empty($result['date']) ? $result['date'] : $date;
             $result['province_id'] =  $province->id;
         }
 
@@ -190,7 +203,7 @@ class VietlottCrawler
     }
 
     function parseContentMega($content){
-        global $parseType, $parseDate, $parseUrl;
+        global $parseType, $parseDate, $parseUrl, $redirectUrl;
         $result = [];
 
         $s1 = '<div class="boxkqxsdientoan">';
@@ -208,6 +221,18 @@ class VietlottCrawler
                     \Log::info("=> parseContent type=$parseType date=$parseDate url=$parseUrl");
                     //libxml_use_internal_errors($internalErrors);
                     $finder = new \DomXPath($dom);
+
+                    // find date
+                    $nodes = $finder->query('//h4//a[last()]');
+                    if ($nodes && !empty($nodes[0]->textContent)){
+                        $date = last(explode(' ',$nodes[0]->textContent));
+                        $dates = explode('/', $date);
+                        $date = $dates[2] . '-' . $dates[1] . '-' . $dates[0];
+                    }elseif ($parseUrl != $redirectUrl){
+                        $date = $this->getDateFromUrl($redirectUrl);
+                    }
+                    $result['date'] = !empty($date) ? $date : '';
+
 
                     $patch = $dom->getElementById('DT6X45_KY_VE')->textContent;
                     $resultNumber = remove_trash_chars($finder->query('//ul[contains(@class,"result-number")]')[0]->textContent);

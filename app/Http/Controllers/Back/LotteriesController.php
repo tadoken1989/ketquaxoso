@@ -136,12 +136,16 @@ class LotteriesController extends Controller
                 return back()->with('lotteries-error', __('Kết quả ngày này đã tồn tại trong database'));
             } else {
                 $resultLottery = new ResultLottery();
-                $resultLottery->province_id = $province_id;
+                $resultLottery->result_day = $this->parseDate($request->get('result_day'));
+
                 if ($provinces->region_id == 2) {
                     $resultLottery->lotteries_db_content = $request->get('lotteries_db_content');
+                    $resultLottery->province_id = getNorthProvinceIdByDate($resultLottery->result_day);
+                }else{
+                    $resultLottery->province_id = $province_id;
                 }
-                $resultLottery->result_day = $this->parseDate($request->get('result_day'));
-                $resultLottery->status = $this->parseDate($request->get('result_day'));
+
+                $resultLottery->status = $request->get('status', false);
                 if ($resultLottery->save()) {
                     $all_prize_number = $request->get('prize_number');
                     if ($all_prize_number) {
@@ -154,7 +158,7 @@ class LotteriesController extends Controller
                                     $detail->prize = $key;
                                     $detail->order = $order;
                                     $detail->status = 1;
-                                    $detail->prize_number = $num;
+                                    $detail->prize_number = $num !== null ? $num : '';
                                     $detail->prize_number_lotto = substr($num, -2);
                                     if ($detail->save()) {
                                         $detail->head_lotto = substr($detail->prize_number_lotto, 0, 1);

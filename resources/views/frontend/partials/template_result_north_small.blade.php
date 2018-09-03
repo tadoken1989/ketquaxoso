@@ -20,12 +20,13 @@
             @if($key != 3 && $key != 5)
                 <tr>
                     <td style="width:16%;vertical-align:middle;font-size:16px;@if($key == 0)color:red;@endif">{{ getNameFromPrize($key) }}</td>
-                    @foreach($detail as $i => $d)
+                    @foreach($detail as $i => $d)`
+                        @php($d['prize_number'] = $d['prize_number']  ? $d['prize_number'] : __('errors.prize-number-null'))
                         <td id="rs_{{ $key }}_{{ $d['order'] }}"
                             colspan="{{col_span()/count($detail)}}"
                             class="chu22 gray need_blank vietdam @if($key == 0){{  ('chu30 maudo') }} @endif stop-reload @if($key == 0)@endif"
                             style="width:{{84/count($detail)}}%;"
-                            rs_len="{{ strlen($d['prize_number']) }}">{{($d['prize_number'])}}</td>
+                            rs_len="{{ strlen($d['prize_number']) }}">{!! ($d['prize_number']) !!}</td>
                     @endforeach
                 </tr>
             @else
@@ -34,10 +35,11 @@
                         style="width:16%;vertical-align:middle;font-size:16px;">{{ getNameFromPrize($key) }}</td>
                     @foreach($detail as $i => $d)
                         @if($i < 3)
+                            @php($d['prize_number'] = $d['prize_number']  ? $d['prize_number'] : __('errors.prize-number-null'))
                             <td id="rs_{{ $key }}_{{ $d['order'] }}" colspan="4"
                                 class="chu22 gray need_blank vietdam @if($key == 0){{  ('maudo') }} @endif stop-reload @if($key == 0)@endif"
                                 style="width:28%"
-                                rs_len="{{ strlen($d['prize_number']) }}">{{($d['prize_number'])}}</td>
+                                rs_len="{{ strlen($d['prize_number']) }}">{!! ($d['prize_number']) !!}</td>
                         @endif
                     @endforeach
                 </tr>
@@ -45,10 +47,11 @@
                     @foreach($detail as $i => $d)
                         <td style="display:none"></td>
                         @if($i >= 3)
+                            @php($d['prize_number'] = $d['prize_number']  ? $d['prize_number'] : __('errors.prize-number-null'))
                             <td id="rs_{{ $key }}_{{ $d['order'] }}" colspan="4"
                                 class="chu22 gray need_blank vietdam @if($key == 0){{  ('maudo') }} @endif stop-reload @if($key == 0)@endif"
                                 style="width:28%"
-                                rs_len="{{ strlen($d['prize_number']) }}">{{($d['prize_number'])}}</td>
+                                rs_len="{{ strlen($d['prize_number']) }}">{!! ($d['prize_number']) !!}</td>
                         @endif
                     @endforeach
                 </tr>

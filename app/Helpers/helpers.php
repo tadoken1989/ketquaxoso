@@ -153,6 +153,36 @@ function getNameFromPrize($i)
     });
 }
 
+function getNameFromPrizeWithProvinceAlias($i, $provinceAlias)
+{
+    if (!in_array($provinceAlias,['mega', 'power', 'max4d']) ) return '';
+    return Cache::remember('getNameFromPrize_' . $i . '_' . $provinceAlias, env('VERY_LONG_CACHE_EXPIRED', 1440), function () use ($i, $provinceAlias) {
+        $array = [
+            'mega' => [
+                'Jackpot',
+                'Giải Nhất',
+                'Giải Nhì',
+                'Giải Ba',
+            ],
+            'power' => [
+                'Jackpot 1',
+                'Jackpot 2',
+                'Giải Nhất',
+                'Giải Nhì',
+                'Giải Ba',
+            ],
+            'max4d' => [
+                'Giải Nhất',
+                'Giải Nhì',
+                'Giải Ba',
+                'Giải KK 1',
+                'Giải KK 2',
+            ]
+        ];
+        return !empty($array[$provinceAlias][$i])?$array[$provinceAlias][$i]:'';
+    });
+}
+
 
 if (!function_exists('getShortNameFromPrize')) {
     function getShortNameFromPrize($i)
@@ -595,7 +625,7 @@ function str_to_number($str){
 }
 
 function echo_now($s){
-    echo $s . "<br>";
+    echo $s . "<br>" . PHP_EOL;
 
     flush();
 }
@@ -606,4 +636,28 @@ function remove_trash_chars($s){
 
 function format_prize($prize){
     return number_format($prize, 0,'', '.');
+}
+
+function getNorthProvinceIdByDate($date = ''){
+    if ($date){
+        $date = strtotime($date);
+    }else{
+        $date = time();
+    }
+    $w = date('w', $date);
+
+    $northProvinces = [
+        0 => 'thai-binh', // Chủ nhật
+        1 => 'ha-noi',
+        2 => 'quang-ninh',
+        3 => 'bac-ninh',
+        4 => 'ha-noi',
+        5 => 'hai-phong',
+        6 => 'nam-dinh',
+    ];
+    if (isset($northProvinces[$w])){
+        return \App\Models\Province::where('slug', $northProvinces[$w])->first()->id;
+    }
+
+    return false;
 }
